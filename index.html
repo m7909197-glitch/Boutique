@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAISON MAYNA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar__mark">ATELIER</div>
+  <nav class="topbar__nav">
+    <a href="#collection">Collection</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <button class="topbar__cart" id="cart-toggle" aria-haspopup="dialog" aria-controls="cart-panel">
+    Panier <span class="topbar__cart-count" id="cart-count">0</span>
+  </button>
+</header>
+
+<section class="hero">
+  <div class="hero__text">
+    <p class="hero__eyebrow">Édition limitée — pièces faites main</p>
+    <h1 class="hero__title">Des pièces<br>qui portent<br><em>une histoire.</em></h1>
+    <p class="hero__sub">Une petite collection d'accessoires choisis avec soin. Chaque article est numéroté et disponible en quantité limitée.</p>
+    <a href="#collection" class="hero__cta">Voir la collection ↓</a>
+  </div>
+  <div class="hero__panel" aria-hidden="true">
+    <div class="hero__panel-tag">
+      <span class="hero__panel-no">N°01</span>
+      <span class="hero__panel-label">Nouvelle saison</span>
+    </div>
+  </div>
+</section>
+
+<main>
+  <section class="collection" id="collection">
+    <div class="collection__head">
+      <h2>La collection</h2>
+      <p id="collection-count" class="collection__count"></p>
+    </div>
+    <div class="grid" id="product-grid">
+      <!-- Les cartes produits sont générées par app.js à partir de products.js -->
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <h2>Une question sur une pièce ?</h2>
+    <p>Écris-nous directement, on répond vite.</p>
+    <a class="contact__link" id="contact-whatsapp" href="#">Écrire sur WhatsApp →</a>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>ATELIER — pièces faites main, en petite série.</p>
+</footer>
+
+<!-- Panneau panier -->
+<div class="cart-overlay" id="cart-overlay"></div>
+<aside class="cart-panel" id="cart-panel" role="dialog" aria-modal="true" aria-label="Panier">
+  <div class="cart-panel__head">
+    <h2>Votre panier</h2>
+    <button class="cart-panel__close" id="cart-close" aria-label="Fermer le panier">✕</button>
+  </div>
+  <div class="cart-panel__items" id="cart-items">
+    <p class="cart-panel__empty" id="cart-empty">Votre panier est vide pour l'instant.</p>
+  </div>
+  <div class="cart-panel__footer">
+    <div class="cart-panel__total">
+      <span>Total</span>
+      <span id="cart-total">0 FCFA</span>
+    </div>
+    <button class="cart-panel__checkout" id="checkout-btn">Commander via WhatsApp</button>
+    <p class="cart-panel__note">La commande est confirmée par message — paiement à la livraison ou par transfert.</p>
+  </div>
+</aside>
+
+<script src="products.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
