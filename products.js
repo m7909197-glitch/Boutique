@@ -15,45 +15,42 @@
   - prix        : prix en FCFA, juste un nombre, sans espace ni "FCFA"
   - description : une phrase courte
   - couleur     : couleur de la vignette produit tant que tu n'as pas
-                  de photo (ex: "#6E2A35"). Codes de couleur possibles
-                  ici : https://htmlcolorcodes.com
-  - image       : (optionnel) laisse "" pour l'instant. Le jour où tu as
-                  une vraie photo en ligne, colle son lien ici entre les
-                  guillemets, ex: "https://exemple.com/photo.jpg"
-                  et elle remplacera automatiquement la couleur.
+                  de photo (ex: "#6E2A35")
+  - image       : chemin vers ta photo dans le dossier images/,
+                  ex: "images/pashmina.jpg". Laisse "" si pas de photo.
 */
 
 const PRODUITS = [
   {
-    id: "sac-besace-cuir",
-    nom: "Sac besace en cuir",
-    prix: 25000,
-    description: "Sac bandoulière en cuir souple, fait main.",
+    id: "voile-pashmina",
+    nom: "Voile Pashmina",
+    prix: 2500,
+    description: "Tissu doux et fluide, bonne tenue, ne glisse pas.",
     couleur: "#6E2A35",
-    image: ""
+    image: "images/pashmina.jpeg"
   },
   {
-    id: "ceinture-tressee",
-    nom: "Ceinture tressée",
-    prix: 8000,
-    description: "Cuir tressé, boucle laiton brossé.",
+    id: "voile-modal",
+    nom: "Voile Modal",
+    prix: 4000,
+    description: "Matière légère et respirante, idéale au quotidien.",
     couleur: "#A6822E",
-    image: ""
+    image: "images/modal.jpeg"
   },
   {
-    id: "foulard-soie",
-    nom: "Foulard en soie",
-    prix: 12000,
-    description: "Imprimé exclusif, bords roulottés main.",
+    id: "voile-soie-medine",
+    nom: "Voile Soie de Médine",
+    prix: 2500,
+    description: "Tombé élégant, ne se froisse pas, opaque.",
     couleur: "#57534A",
-    image: ""
+    image: "images/soie-de-medine.jpeg"
   },
   {
-    id: "boucles-oreilles-laiton",
-    nom: "Boucles d'oreilles laiton",
-    prix: 6000,
-    description: "Pièces uniques martelées à la main.",
+    id: "voile-jersey",
+    nom: "Voile Jersey",
+    prix: 2000,
+    description: "Extensible et facile à nouer, sans épingles.",
     couleur: "#1C1A17",
-    image: ""
+    image: "images/jersey.jpeg"
   }
 ];
