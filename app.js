@@ -1,3 +1,4 @@
+console.log("TEST 1 - début du script");
 /*
   ===========================================================
   RÉGLAGES — à modifier une seule fois
@@ -249,3 +250,4 @@ document.getElementById("contact-whatsapp").addEventListener("click", (e) => {
 renderTabs();
 renderGrid();
 renderCart();
+console.log("TEST 2 -fin du script");
