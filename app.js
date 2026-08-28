@@ -5,7 +5,7 @@
   Ton numéro WhatsApp, au format international, SANS le "+",
   sans espace ni tiret. Exemple pour le Sénégal : "221771234567"
 */
-const WHATSAPP_NUMBER = "221772595295";
+const WHATSAPP_NUMBER = "221771234567";
 
 // ===========================================================
 // À partir d'ici, tu n'as normalement rien à toucher.
@@ -183,69 +183,4 @@ function renderCart() {
       : `background:${couleur.hex};`;
     return `
       <div class="cart-item" data-key="${key}">
-        <div class="cart-item__swatch" style="${swatchStyle}"></div>
-        <div class="cart-item__info">
-          <p class="cart-item__name">${p.nom}</p>
-          <p class="cart-item__price">${couleur.nom} — ${formatPrice(p.prix)}</p>
-        </div>
-        <div class="cart-item__qty">
-          <button class="qty-minus" data-key="${key}" aria-label="Diminuer la quantité">−</button>
-          <span>${qty}</span>
-          <button class="qty-plus" data-key="${key}" aria-label="Augmenter la quantité">+</button>
-        </div>
-        <button class="cart-item__remove" data-key="${key}">Retirer</button>
-      </div>
-    `;
-  }).join("");
-
-  itemsEl.querySelectorAll(".qty-minus").forEach(b => b.addEventListener("click", () => changeQty(b.dataset.key, -1)));
-  itemsEl.querySelectorAll(".qty-plus").forEach(b => b.addEventListener("click", () => changeQty(b.dataset.key, 1)));
-  itemsEl.querySelectorAll(".cart-item__remove").forEach(b => b.addEventListener("click", () => removeFromCart(b.dataset.key)));
-}
-
-// ---------- Panneau panier : ouverture / fermeture ----------
-const overlay = document.getElementById("cart-overlay");
-const panel = document.getElementById("cart-panel");
-
-function openCart() {
-  overlay.classList.add("open");
-  panel.classList.add("open");
-}
-
-function closeCart() {
-  overlay.classList.remove("open");
-  panel.classList.remove("open");
-}
-
-document.getElementById("cart-toggle").addEventListener("click", openCart);
-document.getElementById("cart-close").addEventListener("click", closeCart);
-overlay.addEventListener("click", closeCart);
-
-// ---------- Commande via WhatsApp ----------
-function buildWhatsappMessage() {
-  const lines = ["Bonjour, je souhaite commander :"];
-  Object.entries(cart).forEach(([key, qty]) => {
-    const variant = parseKey(key);
-    if (variant) {
-      const { p, couleur } = variant;
-      lines.push(`• ${p.nom} (${couleur.nom}) x${qty} — ${formatPrice(p.prix * qty)}`);
-    }
-  });
-  lines.push("", `Total : ${formatPrice(cartTotal())}`);
-  return lines.join("\n");
-}
-
-document.getElementById("checkout-btn").addEventListener("click", () => {
-  const message = encodeURIComponent(buildWhatsappMessage());
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, "_blank");
-});
-
-document.getElementById("contact-whatsapp").addEventListener("click", (e) => {
-  e.preventDefault();
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}`, "_blank");
-});
-
-// ---------- Init ----------
-renderTabs();
-renderGrid();
-renderCart();
+        <div

@@ -33,7 +33,7 @@ const PRODUITS = [
   {
     id: "pashmina",
     nom: "Voile Pashmina",
-    prix: 2500,
+    prix: 7000,
     description: "Tissu doux et fluide, bonne tenue, ne glisse pas.",
     categorie: "Pashmina",
     couleurs: [
@@ -45,7 +45,7 @@ const PRODUITS = [
   {
     id: "modal",
     nom: "Voile Modal",
-    prix: 4000,
+    prix: 6000,
     description: "Matière légère et respirante, idéale au quotidien.",
     categorie: "Modal",
     couleurs: [
@@ -57,7 +57,7 @@ const PRODUITS = [
   {
     id: "soie-medine",
     nom: "Voile Soie de Médine",
-    prix: 2500,
+    prix: 6500,
     description: "Tombé élégant, ne se froisse pas, opaque.",
     categorie: "Soie de Médine",
     couleurs: [
