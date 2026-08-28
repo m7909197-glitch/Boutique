@@ -7,8 +7,9 @@
   couleurs disponibles à l'intérieur.
 
   Pour AJOUTER UN NOUVEAU TYPE de voile : copie un bloc { ... }
-  entier (de l'id à la dernière couleur), colle-le dans le tableau,
-  puis change les valeurs.
+  entier (de "id" à la dernière couleur), colle-le dans le tableau,
+  puis change les valeurs. N'oublie pas la virgule après le bloc
+  précédent.
 
   Pour AJOUTER UNE COULEUR à un type existant : copie une ligne
   { nom: "...", hex: "...", image: "..." } à l'intérieur de
@@ -26,14 +27,14 @@
   - hex   : code couleur affiché tant qu'il n'y a pas de photo
             (trouve des codes ici : https://htmlcolorcodes.com)
   - image : chemin vers la photo de cette couleur précise,
-            ex: "images/pashmina-bleu.jpeg". Laisse "" si pas de photo.
+            ex: "images/pashmina.jpeg". Laisse "" si pas de photo.
 */
 
 const PRODUITS = [
   {
     id: "pashmina",
     nom: "Voile Pashmina",
-    prix: 2500,
+    prix: 7000,
     description: "Tissu doux et fluide, bonne tenue, ne glisse pas.",
     categorie: "Pashmina",
     couleurs: [
@@ -45,7 +46,7 @@ const PRODUITS = [
   {
     id: "modal",
     nom: "Voile Modal",
-    prix: 4000,
+    prix: 6000,
     description: "Matière légère et respirante, idéale au quotidien.",
     categorie: "Modal",
     couleurs: [
@@ -57,7 +58,7 @@ const PRODUITS = [
   {
     id: "soie-medine",
     nom: "Voile Soie de Médine",
-    prix: 2500,
+    prix: 6500,
     description: "Tombé élégant, ne se froisse pas, opaque.",
     categorie: "Soie de Médine",
     couleurs: [
@@ -68,7 +69,7 @@ const PRODUITS = [
   {
     id: "jersey",
     nom: "Voile Jersey",
-    prix: 2500,
+    prix: 6500,
     description: "Extensible et facile à nouer, sans épingles.",
     categorie: "Jersey",
     couleurs: [
