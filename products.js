@@ -3,54 +3,77 @@
   TES PRODUITS — modifie uniquement ce fichier pour gérer ta boutique
   ===========================================================
 
-  Pour AJOUTER un article : copie un bloc { ... } entier, colle-le
-  dans le tableau ci-dessous, puis change les valeurs.
+  Chaque bloc représente UN TYPE de voile, avec la liste de ses
+  couleurs disponibles à l'intérieur.
 
-  Pour SUPPRIMER un article : supprime son bloc { ... } en entier
-  (attention à garder les virgules entre les blocs restants).
+  Pour AJOUTER UN NOUVEAU TYPE de voile : copie un bloc { ... }
+  entier (de l'id à la dernière couleur), colle-le dans le tableau,
+  puis change les valeurs.
 
-  Champs :
-  - id          : identifiant unique, sans espace (ex: "sac-01")
-  - nom         : nom affiché sur le site
-  - prix        : prix en FCFA, juste un nombre, sans espace ni "FCFA"
+  Pour AJOUTER UNE COULEUR à un type existant : copie une ligne
+  { nom: "...", hex: "...", image: "..." } à l'intérieur de
+  "couleurs", et modifie ses valeurs.
+
+  Champs d'un type :
+  - id          : identifiant unique, sans espace (ex: "pashmina")
+  - nom         : nom affiché (ex: "Voile Pashmina")
+  - prix        : prix en FCFA, identique pour toutes les couleurs
   - description : une phrase courte
-  - couleur     : couleur de la vignette produit tant que tu n'as pas
-                  de photo (ex: "#6E2A35")
-  - image       : chemin vers ta photo dans le dossier images/,
-                  ex: "images/pashmina.jpg". Laisse "" si pas de photo.
+  - categorie   : sert à ranger ce type dans le bon onglet de filtre
+
+  Champs d'une couleur :
+  - nom   : nom de la couleur (ex: "Bleu marine")
+  - hex   : code couleur affiché tant qu'il n'y a pas de photo
+            (trouve des codes ici : https://htmlcolorcodes.com)
+  - image : chemin vers la photo de cette couleur précise,
+            ex: "images/pashmina-bleu.jpeg". Laisse "" si pas de photo.
 */
 
 const PRODUITS = [
   {
-    id: "voile-pashmina",
+    id: "pashmina",
     nom: "Voile Pashmina",
     prix: 2500,
     description: "Tissu doux et fluide, bonne tenue, ne glisse pas.",
-    couleur: "#6E2A35",
-    image: "images/pashmina.jpeg"
+    categorie: "Pashmina",
+    couleurs: [
+      { nom: "Bleu marine", hex: "#1F3A5F", image: "" },
+      { nom: "Bordeaux", hex: "#6E2A35", image: "images/pashmina.jpeg" },
+      { nom: "Kaki", hex: "#6B6E4E", image: "" }
+    ]
   },
   {
-    id: "voile-modal",
+    id: "modal",
     nom: "Voile Modal",
     prix: 4000,
     description: "Matière légère et respirante, idéale au quotidien.",
-    couleur: "#A6822E",
-    image: "images/modal.jpeg"
+    categorie: "Modal",
+    couleurs: [
+      { nom: "Noir", hex: "#1C1A17", image: "images/modal.jpeg" },
+      { nom: "Beige", hex: "#C9B79C", image: "" },
+      { nom: "Gris souris", hex: "#8A8577", image: "" }
+    ]
   },
   {
-    id: "voile-soie-medine",
+    id: "soie-medine",
     nom: "Voile Soie de Médine",
     prix: 2500,
     description: "Tombé élégant, ne se froisse pas, opaque.",
-    couleur: "#57534A",
-    image: "images/soie-de-medine.jpeg"
+    categorie: "Soie de Médine",
+    couleurs: [
+      { nom: "Gris", hex: "#57534A", image: "images/soie-de-medine.jpeg" },
+      { nom: "Blanc cassé", hex: "#EDE8DC", image: "" }
+    ]
   },
   {
-    id: "voile-jersey",
+    id: "jersey",
     nom: "Voile Jersey",
-    prix: 2000,
+    prix: 6500,
     description: "Extensible et facile à nouer, sans épingles.",
-    couleur: "#1C1A17",
-    image: "images/jersey.jpeg"
+    categorie: "Jersey",
+    couleurs: [
+      { nom: "Kaki", hex: "#6B6E4E", image: "images/jersey.jpeg" },
+      { nom: "Noir", hex: "#1C1A17", image: "" }
+    ]
   }
 ];
