@@ -119,7 +119,7 @@ h1, h2 {
   grid-template-columns: 1.1fr 0.9fr;
   gap: 40px;
   padding: 7vw 5vw 6vw;
-  align-items: end;
+  align-items: center;
 }
 
 .hero__eyebrow {
@@ -532,11 +532,10 @@ h1, h2 {
 @media (max-width: 760px) {
   .hero {
     grid-template-columns: 1fr;
-    padding-top: 12vw;
+    padding-top: 8vw;
   }
   .hero__panel {
     aspect-ratio: 16/10;
-    order: -1;
   }
   .topbar__nav { display: none; }
 }
