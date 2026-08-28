@@ -5,7 +5,7 @@
   Ton numéro WhatsApp, au format international, SANS le "+",
   sans espace ni tiret. Exemple pour le Sénégal : "221771234567"
 */
-const WHATSAPP_NUMBER = "221771234567";
+const WHATSAPP_NUMBER = "221772595295";
 
 // ===========================================================
 // À partir d'ici, tu n'as normalement rien à toucher.
