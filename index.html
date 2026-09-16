@@ -64,7 +64,7 @@
       <p class="preview__sub">Un exemple par type de voile — retrouve toutes les couleurs disponibles dans la collection complète.</p>
     </div>
     <div class="preview-grid" id="preview-grid">
-      <!-- Les échantillons sont générés par app.js à partir de products.js -->
+      <!-- Les échantillons sont générés par app.js à partir du Google Sheet -->
     </div>
     <button class="preview__cta" id="preview-collection-btn">Voir toute la collection et les couleurs →</button>
   </section>
@@ -108,15 +108,15 @@
     <button class="side-panel__close" id="collection-close" aria-label="Fermer la collection">✕</button>
   </div>
   <div class="side-panel__body">
-    <p class="collection-panel__count" id="collection-count"></p>
+    <p class="collection-panel__count" id="collection-count">Chargement des produits...</p>
     <div class="category-tabs" id="category-tabs"></div>
     <div class="grid" id="product-grid">
-      <!-- Les cartes produits sont générées par app.js à partir de products.js -->
+      <!-- Les cartes produits sont générées par app.js à partir du Google Sheet -->
     </div>
   </div>
 </aside>
 
-<script src="products.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

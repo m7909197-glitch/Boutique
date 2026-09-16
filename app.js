@@ -2,14 +2,21 @@
   ===========================================================
   RÉGLAGES — à modifier une seule fois
   ===========================================================
-  Ton numéro WhatsApp, au format international, SANS le "+",
-  sans espace ni tiret. Exemple pour le Sénégal : "221771234567"
 */
-const WHATSAPP_NUMBER = "221772595295";
+
+// Ton numéro WhatsApp, au format international, SANS le "+",
+// sans espace ni tiret. Exemple pour le Sénégal : "221771234567"
+const WHATSAPP_NUMBER = "221771234567";
+
+// Le lien CSV publié de ton Google Sheet (Fichier > Partager >
+// Publier sur le web > choisis "Valeurs séparées par des virgules (.csv)").
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQHIG7gJfIVUt2pETk9yMEhS921tQbiIlLdby7upqzcHuCXVaYSpIq10J1rKGWNuZYUfk4xiozkojF9/pub?output=csv";
 
 // ===========================================================
 // À partir d'ici, tu n'as normalement rien à toucher.
 // ===========================================================
+
+let PRODUITS = []; // rempli automatiquement depuis ton Google Sheet au chargement de la page
 
 const cart = {}; // { "produitId::indexCouleur": quantite }
 const selectedColor = {}; // { produitId: indexCouleur } — couleur actuellement affichée sur chaque carte
@@ -39,12 +46,70 @@ function parseKey(key) {
   return { p: p, couleur: couleur, colorIndex: Number(colorIndex) };
 }
 
+// ---------- Construction de PRODUITS à partir des lignes du Google Sheet ----------
+function texteVersBooleen(texte) {
+  const valeur = (texte || "").trim().toLowerCase();
+  return valeur === "oui" || valeur === "true" || valeur === "1";
+}
+
+function construireProduits(lignes) {
+  const parId = {};
+  const ordre = [];
+
+  lignes.forEach(function (ligne) {
+    const id = (ligne.id || "").trim();
+    if (!id) return; // ignore les lignes vides ou incomplètes
+
+    if (!parId[id]) {
+      parId[id] = {
+        id: id,
+        nom: (ligne.nom || "").trim(),
+        prix: Number(ligne.prix) || 0,
+        description: (ligne.description || "").trim(),
+        categorie: (ligne.categorie || "Autres").trim(),
+        couleurs: []
+      };
+      ordre.push(id);
+    }
+
+    parId[id].couleurs.push({
+      nom: (ligne.couleur_nom || "").trim(),
+      hex: (ligne.couleur_hex || "#8A8577").trim(),
+      image: (ligne.image || "").trim(),
+      disponible: texteVersBooleen(ligne.disponible)
+    });
+  });
+
+  return ordre.map(function (id) { return parId[id]; });
+}
+
+function chargerProduits() {
+  Papa.parse(SHEET_CSV_URL, {
+    download: true,
+    header: true,
+    skipEmptyLines: true,
+    complete: function (resultat) {
+      PRODUITS = construireProduits(resultat.data);
+      renderPreview();
+      renderTabs();
+      renderGrid();
+      renderCart();
+    },
+    error: function () {
+      const compteur = document.getElementById("collection-count");
+      if (compteur) {
+        compteur.textContent = "Impossible de charger les produits pour le moment. Réessaie dans un instant.";
+      }
+    }
+  });
+}
+
 // ---------- Aperçu sur la page d'accueil ----------
 function renderPreview() {
   const previewGrid = document.getElementById("preview-grid");
   if (!previewGrid) return;
 
-  // Un seul exemple par catégorie, dans l'ordre d'apparition dans products.js
+  // Un seul exemple par catégorie, dans l'ordre d'apparition dans le Sheet
   const dejaVu = {};
   const echantillons = [];
   PRODUITS.forEach(function (p) {
@@ -110,15 +175,22 @@ function renderCard(p) {
 
   const swatches = p.couleurs.map(function (c, i) {
     const active = i === idx ? "swatch--active" : "";
+    const epuise = !c.disponible ? "swatch--epuise" : "";
     return (
-      '<button class="swatch ' + active + '" style="--swatch-color:' + c.hex + '" ' +
-      'data-id="' + p.id + '" data-idx="' + i + '" aria-label="' + c.nom + '" title="' + c.nom + '"></button>'
+      '<button class="swatch ' + active + ' ' + epuise + '" style="--swatch-color:' + c.hex + '" ' +
+      'data-id="' + p.id + '" data-idx="' + i + '" aria-label="' + c.nom + (c.disponible ? "" : " (épuisé)") + '" title="' + c.nom + (c.disponible ? "" : " — épuisé") + '"></button>'
     );
   }).join("");
 
+  const badge = !couleur.disponible
+    ? '<span class="card__badge">Épuisé</span>'
+    : "";
+
+  const boutonDesactive = !couleur.disponible;
+
   return (
     '<article class="card">' +
-      '<div class="card__image" style="' + imageStyle + '">' + (couleur.image ? "" : p.nom) + '</div>' +
+      '<div class="card__image" style="' + imageStyle + '">' + badge + (couleur.image ? "" : p.nom) + '</div>' +
       '<p class="card__no">' + p.categorie + '</p>' +
       '<h3 class="card__name">' + p.nom + '</h3>' +
       '<p class="card__desc">' + p.description + '</p>' +
@@ -126,7 +198,7 @@ function renderCard(p) {
       '<div class="card__swatches">' + swatches + '</div>' +
       '<div class="card__foot">' +
         '<span class="card__price" style="--price-dot-color:' + couleur.hex + '">' + formatPrice(p.prix) + '</span>' +
-        '<button class="card__add" data-id="' + p.id + '">Ajouter</button>' +
+        '<button class="card__add" data-id="' + p.id + '"' + (boutonDesactive ? " disabled" : "") + '>' + (boutonDesactive ? "Épuisé" : "Ajouter") + '</button>' +
       '</div>' +
     '</article>'
   );
@@ -156,10 +228,8 @@ function renderGrid() {
     btn.addEventListener("click", function () {
       const idx = selectedColor[btn.dataset.id] || 0;
       addToCart(makeKey(btn.dataset.id, idx));
-      btn.dataset.added = "true";
       btn.textContent = "Ajouté ✓";
       setTimeout(function () {
-        btn.dataset.added = "false";
         btn.textContent = "Ajouter";
       }, 900);
     });
@@ -201,6 +271,7 @@ function renderCart() {
   const totalEl = document.getElementById("cart-total");
   const countEl = document.getElementById("cart-count");
   const checkoutBtn = document.getElementById("checkout-btn");
+  if (!itemsEl || !totalEl || !countEl || !checkoutBtn) return;
 
   const keys = Object.keys(cart);
   countEl.textContent = cartCount();
@@ -314,7 +385,5 @@ document.getElementById("contact-whatsapp").addEventListener("click", function (
 });
 
 // ---------- Init ----------
-renderPreview();
-renderTabs();
-renderGrid();
+chargerProduits();
 renderCart();
